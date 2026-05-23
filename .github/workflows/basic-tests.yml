@@ -273,6 +273,7 @@ jobs:
       - name: "Checkout ${{ github.ref }} ( ${{ github.sha }} )"
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
         with:
+          fetch-depth: 2
           persist-credentials: false
       - name: "Install Breeze"
         uses: ./.github/actions/breeze
@@ -284,12 +285,6 @@ jobs:
           python-version: ${{ steps.breeze.outputs.host-python-version }}
           platform: ${{ inputs.platform }}
           save-cache: true
-      - name: Fetch incoming commit ${{ github.sha }} with its parent
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
-        with:
-          ref: ${{ github.sha }}
-          fetch-depth: 2
-          persist-credentials: false
       - name: "Static checks: basic checks only"
         run: >
           prek --show-diff-on-failure --color always
