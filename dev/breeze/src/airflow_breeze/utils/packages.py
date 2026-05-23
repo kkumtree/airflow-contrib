@@ -796,14 +796,8 @@ def make_sure_remote_apache_exists_and_fetch(github_repository: str = "apache/ai
       they are set differently
 
     """
-    import os
-    github_token = os.environ.get("GITHUB_TOKEN")
-    remote_url = f"https://{github_token}@github.com/{github_repository}.git" if github_token else f"https://github.com/{github_repository}.git"
     try:
         run_command(["git", "remote", "get-url", HTTPS_REMOTE], text=True, capture_output=True)
-        # Update URL just in case token is missing or changed
-        import subprocess
-        run_command(["git", "remote", "set-url", HTTPS_REMOTE, remote_url], check=False, stderr=subprocess.DEVNULL)
     except subprocess.CalledProcessError as ex:
         if ex.returncode == 128 or ex.returncode == 2:
             run_command(
@@ -812,7 +806,7 @@ def make_sure_remote_apache_exists_and_fetch(github_repository: str = "apache/ai
                     "remote",
                     "add",
                     HTTPS_REMOTE,
-                    remote_url,
+                    f"https://github.com/{github_repository}.git",
                 ],
                 check=True,
             )
