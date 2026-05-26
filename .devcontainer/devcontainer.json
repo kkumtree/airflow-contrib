@@ -7,22 +7,26 @@
     "features": {
         "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
     },
-    "settings": {
-        "terminal.integrated.defaultProfile.linux": "bash"
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash"
+            },
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "mtxr.sqltools",
+                "mtxr.sqltools-driver-pg",
+                "rogalmic.bash-debug",
+                "ms-azuretools.vscode-docker",
+                "dbaeumer.vscode-eslint",
+                "ecmel.vscode-html-css",
+                "timonwong.shellcheck",
+                "redhat.vscode-yaml",
+                "rogalmic.bash-debug"
+            ]
+        }
     },
-    "extensions": [
-        "ms-python.python",
-        "ms-python.vscode-pylance",
-        "mtxr.sqltools",
-        "mtxr.sqltools-driver-pg",
-        "rogalmic.bash-debug",
-        "ms-azuretools.vscode-docker",
-        "dbaeumer.vscode-eslint",
-        "ecmel.vscode-html-css",
-        "timonwong.shellcheck",
-        "redhat.vscode-yaml",
-        "rogalmic.bash-debug"
-    ],
     "service": "airflow",
     "forwardPorts": [
         8080,
