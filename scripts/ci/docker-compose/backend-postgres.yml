@@ -26,14 +26,14 @@ services:
         condition: service_healthy
 
   postgres:
-    image: postgres:${POSTGRES_VERSION}
+    image: postgres:${POSTGRES_VERSION:-14}
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=airflow
       - POSTGRES_DB=airflow
       - POSTGRES_HOST_AUTH_METHOD=password
     volumes:
-      - postgres-data-volume:/var/lib/postgresql/{$POSTGRES_VERSION}/docker
+      - postgres-data-volume:/var/lib/postgresql/${POSTGRES_VERSION:-14}/docker
     healthcheck:
       test: ["CMD", "psql", "-h", "localhost", "-U", "postgres", "-c", "select 1", "airflow"]
       interval: 10s
@@ -43,4 +43,4 @@ services:
     restart: "on-failure"
 volumes:
   postgres-data-volume:
-    name: "postgres${POSTGRES_VERSION}-db-volume"
+    name: "postgres${POSTGRES_VERSION:-14}-db-volume"
